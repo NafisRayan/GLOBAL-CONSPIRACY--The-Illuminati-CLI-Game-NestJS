@@ -1,0 +1,27 @@
+import { Repository } from 'typeorm';
+import { Player, PlayerBackground } from './entities/player.entity';
+import { Mission } from './entities/mission.entity';
+import { Faction } from './entities/faction.entity';
+export declare class GameService {
+    private playerRepository;
+    private missionRepository;
+    private factionRepository;
+    constructor(playerRepository: Repository<Player>, missionRepository: Repository<Mission>, factionRepository: Repository<Faction>);
+    initializeGame(): Promise<void>;
+    createNewPlayer(name: string, background: PlayerBackground): Promise<Player>;
+    getPlayerById(id: number): Promise<Player>;
+    getAvailableMissions(playerId: number): Promise<Mission[]>;
+    startMission(playerId: number, missionId: number): Promise<Mission>;
+    completeMission(playerId: number, missionId: number, choice: number): Promise<void>;
+    private getInitialStatsForBackground;
+    private applyConsequences;
+    private applyRewards;
+    private checkRankAdvancement;
+    private initializeFactions;
+    private initializeMissions;
+    startGame(): Promise<void>;
+    continueGame(playerId: number): Promise<void>;
+    displayPlayerStats(player: Player): void;
+    private mainGameLoop;
+    private handleMissions;
+}
