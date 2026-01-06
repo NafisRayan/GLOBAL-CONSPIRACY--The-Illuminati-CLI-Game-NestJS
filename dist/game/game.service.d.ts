@@ -24,4 +24,10 @@ export declare class GameService {
     displayPlayerStats(player: Player): void;
     private mainGameLoop;
     private handleMissions;
+    private checkForEnding;
+    private displayEnding;
+    private viewWorldState;
+    private manageResources;
+    private checkCurrentMissions;
+    private showHelp;
 }
