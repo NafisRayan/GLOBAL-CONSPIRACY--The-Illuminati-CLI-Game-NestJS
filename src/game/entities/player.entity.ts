@@ -1,5 +1,4 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Mission } from './mission.entity';
 
 export enum PlayerRank {
   INITIATE = 'Initiate',
@@ -86,6 +85,6 @@ export class Player {
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
-  @OneToMany(() => Mission, mission => mission.player)
-  missions: Mission[];
+  @OneToMany('Mission', 'player')
+  missions: any[];
 }

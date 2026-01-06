@@ -1,5 +1,4 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Player } from './player.entity';
 
 export enum MissionType {
   RECRUITMENT = 'Recruitment',
@@ -45,19 +44,19 @@ export class Mission {
   difficulty: number;
 
   @Column({ type: 'json', nullable: true })
-  requirements: any;
+  requirements: Record<string, any>;
 
   @Column({ type: 'json', nullable: true })
-  rewards: any;
+  rewards: Record<string, any>;
 
   @Column({ type: 'json', nullable: true })
-  choices: any;
+  choices: string[];
 
   @Column({ type: 'json', nullable: true })
-  consequences: any;
+  consequences: Record<string, any>[];
 
-  @ManyToOne(() => Player, player => player.missions)
-  player: Player;
+  @ManyToOne('Player', 'missions')
+  player: any;
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

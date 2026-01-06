@@ -1,4 +1,3 @@
-import { Mission } from './mission.entity';
 export declare enum PlayerRank {
     INITIATE = "Initiate",
     APPRENTICE = "Apprentice",
@@ -36,5 +35,5 @@ export declare class Player {
     turn: number;
     createdAt: Date;
     updatedAt: Date;
-    missions: Mission[];
+    missions: any[];
 }

@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mission = exports.MissionStatus = exports.MissionType = void 0;
 const typeorm_1 = require("typeorm");
-const player_entity_1 = require("./player.entity");
 var MissionType;
 (function (MissionType) {
     MissionType["RECRUITMENT"] = "Recruitment";
@@ -72,15 +71,15 @@ __decorate([
 ], Mission.prototype, "rewards", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'json', nullable: true }),
-    __metadata("design:type", Object)
+    __metadata("design:type", Array)
 ], Mission.prototype, "choices", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'json', nullable: true }),
-    __metadata("design:type", Object)
+    __metadata("design:type", Array)
 ], Mission.prototype, "consequences", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => player_entity_1.Player, player => player.missions),
-    __metadata("design:type", player_entity_1.Player)
+    (0, typeorm_1.ManyToOne)('Player', 'missions'),
+    __metadata("design:type", Object)
 ], Mission.prototype, "player", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' }),

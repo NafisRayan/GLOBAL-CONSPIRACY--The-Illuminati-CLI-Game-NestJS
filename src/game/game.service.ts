@@ -6,7 +6,7 @@ import { Mission, MissionType, MissionStatus } from './entities/mission.entity';
 import { Faction, FactionType } from './entities/faction.entity';
 import * as chalk from 'chalk';
 import * as figlet from 'figlet';
-import * as inquirer from 'inquirer';
+import inquirer from 'inquirer';
 
 @Injectable()
 export class GameService {
@@ -133,24 +133,25 @@ export class GameService {
     }
   }
 
-  private applyConsequences(player: Player, consequences: any) {
-    if (consequences.influence) player.influence += consequences.influence;
-    if (consequences.wealth) player.wealth += consequences.wealth;
-    if (consequences.knowledge) player.knowledge += consequences.knowledge;
-    if (consequences.power) player.power += consequences.power;
-    if (consequences.secrecy) player.secrecy += consequences.secrecy;
-    if (consequences.loyalty) player.loyalty += consequences.loyalty;
-    if (consequences.experience) player.experience += consequences.experience;
+  private applyConsequences(player: Player, consequences: Partial<Record<keyof Player, number>>) {
+    if (consequences.influence !== undefined) player.influence += consequences.influence;
+    if (consequences.wealth !== undefined) player.wealth += consequences.wealth;
+    if (consequences.knowledge !== undefined) player.knowledge += consequences.knowledge;
+    if (consequences.power !== undefined) player.power += consequences.power;
+    if (consequences.secrecy !== undefined) player.secrecy += consequences.secrecy;
+    if (consequences.loyalty !== undefined) player.loyalty += consequences.loyalty;
+    if (consequences.experience !== undefined) player.experience += consequences.experience;
 
     // Ensure stats don't go below 0 or above 100
-    Object.keys(consequences).forEach(key => {
-      if (typeof player[key] === 'number') {
-        player[key] = Math.max(0, Math.min(100, player[key]));
+    const numericKeys: (keyof Player)[] = ['influence', 'wealth', 'knowledge', 'power', 'secrecy', 'loyalty', 'charisma', 'intelligence', 'cunning', 'willpower', 'stealth'];
+    numericKeys.forEach(key => {
+      if (consequences[key] !== undefined && typeof (player as any)[key] === 'number') {
+        (player as any)[key] = Math.max(0, Math.min(100, (player as any)[key]));
       }
     });
   }
 
-  private applyRewards(player: Player, rewards: any) {
+  private applyRewards(player: Player, rewards: Partial<Record<keyof Player, number>>) {
     this.applyConsequences(player, rewards);
   }
 

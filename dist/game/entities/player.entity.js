@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Player = exports.PlayerBackground = exports.PlayerRank = void 0;
 const typeorm_1 = require("typeorm");
-const mission_entity_1 = require("./mission.entity");
 var PlayerRank;
 (function (PlayerRank) {
     PlayerRank["INITIATE"] = "Initiate";
@@ -118,7 +117,7 @@ __decorate([
     __metadata("design:type", Date)
 ], Player.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => mission_entity_1.Mission, mission => mission.player),
+    (0, typeorm_1.OneToMany)('Mission', 'player'),
     __metadata("design:type", Array)
 ], Player.prototype, "missions", void 0);
 exports.Player = Player = __decorate([

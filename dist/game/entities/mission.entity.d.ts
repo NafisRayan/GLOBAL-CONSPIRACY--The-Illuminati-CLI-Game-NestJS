@@ -1,4 +1,3 @@
-import { Player } from './player.entity';
 export declare enum MissionType {
     RECRUITMENT = "Recruitment",
     INFILTRATION = "Infiltration",
@@ -20,10 +19,10 @@ export declare class Mission {
     type: MissionType;
     status: MissionStatus;
     difficulty: number;
-    requirements: any;
-    rewards: any;
-    choices: any;
-    consequences: any;
-    player: Player;
+    requirements: Record<string, any>;
+    rewards: Record<string, any>;
+    choices: string[];
+    consequences: Record<string, any>[];
+    player: any;
     createdAt: Date;
 }

@@ -21,7 +21,7 @@ const mission_entity_1 = require("./entities/mission.entity");
 const faction_entity_1 = require("./entities/faction.entity");
 const chalk = require("chalk");
 const figlet = require("figlet");
-const inquirer = require("inquirer");
+const inquirer_1 = require("inquirer");
 let GameService = class GameService {
     constructor(playerRepository, missionRepository, factionRepository) {
         this.playerRepository = playerRepository;
@@ -118,22 +118,23 @@ let GameService = class GameService {
         }
     }
     applyConsequences(player, consequences) {
-        if (consequences.influence)
+        if (consequences.influence !== undefined)
             player.influence += consequences.influence;
-        if (consequences.wealth)
+        if (consequences.wealth !== undefined)
             player.wealth += consequences.wealth;
-        if (consequences.knowledge)
+        if (consequences.knowledge !== undefined)
             player.knowledge += consequences.knowledge;
-        if (consequences.power)
+        if (consequences.power !== undefined)
             player.power += consequences.power;
-        if (consequences.secrecy)
+        if (consequences.secrecy !== undefined)
             player.secrecy += consequences.secrecy;
-        if (consequences.loyalty)
+        if (consequences.loyalty !== undefined)
             player.loyalty += consequences.loyalty;
-        if (consequences.experience)
+        if (consequences.experience !== undefined)
             player.experience += consequences.experience;
-        Object.keys(consequences).forEach(key => {
-            if (typeof player[key] === 'number') {
+        const numericKeys = ['influence', 'wealth', 'knowledge', 'power', 'secrecy', 'loyalty', 'charisma', 'intelligence', 'cunning', 'willpower', 'stealth'];
+        numericKeys.forEach(key => {
+            if (consequences[key] !== undefined && typeof player[key] === 'number') {
                 player[key] = Math.max(0, Math.min(100, player[key]));
             }
         });
@@ -340,7 +341,7 @@ let GameService = class GameService {
     }
     async startGame() {
         await this.initializeGame();
-        const answers = await inquirer.prompt([
+        const answers = await inquirer_1.default.prompt([
             {
                 type: 'input',
                 name: 'name',
@@ -388,7 +389,7 @@ let GameService = class GameService {
                 'View World State',
                 'Save and Quit',
             ];
-            const answer = await inquirer.prompt([
+            const answer = await inquirer_1.default.prompt([
                 {
                     type: 'list',
                     name: 'action',
@@ -426,7 +427,7 @@ let GameService = class GameService {
             value: m.id,
         }));
         missionChoices.push({ name: 'Back to main menu', value: 'back' });
-        const answer = await inquirer.prompt([
+        const answer = await inquirer_1.default.prompt([
             {
                 type: 'list',
                 name: 'missionId',
@@ -440,7 +441,7 @@ let GameService = class GameService {
         console.log(`\n${mission.title}`);
         console.log(`${mission.description}\n`);
         if (mission.choices && mission.choices.length > 0) {
-            const choiceAnswer = await inquirer.prompt([
+            const choiceAnswer = await inquirer_1.default.prompt([
                 {
                     type: 'list',
                     name: 'choice',
